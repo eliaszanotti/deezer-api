@@ -15,13 +15,19 @@ def search(search_query) :
     return search["data"]
 
 def search_results(search_query) : 
-    result = search(search_query)
+    new_query = ""
+    for char in search_query : 
+        if char == " " or char == '"' or char == "'" :
+            new_query += "_"
+        else : 
+            new_query += char 
+    result = search(new_query)
     for i in range(len(result)) : 
         artist = result[i]["artist"]["name"]
         album = result[i]["album"]["title"]
         print(artist, "-", album)
 
-print(search_results("feu"))
+print(search_results('une main lave l autre'))
 
 
 
