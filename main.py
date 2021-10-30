@@ -22,12 +22,19 @@ def search_results(search_query) :
         else : 
             new_query += char 
     result = search(new_query)
+    list_albums = []
     for i in range(len(result)) : 
+        id_album = result[i]["album"]["id"]
         artist = result[i]["artist"]["name"]
         album = result[i]["album"]["title"]
-        print(artist, "-", album)
+        final = str(id_album) + " : " + artist + " - " + album
+        if final not in list_albums : 
+            list_albums.append(final)
+    for album in list_albums : 
+        print(album)
+    return 
 
-print(search_results('une main lave l autre'))
+search_results('feu ')
 
 
 
