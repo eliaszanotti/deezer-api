@@ -9,7 +9,19 @@ def deezer_request(request_str) :
     json_dictionary = json.loads(data.decode("utf-8"))
     return json_dictionary
 
-json = deezer_request("/track/3135556")
+def search(search_query) : 
+    request_str = '/search?q=album:"' + search_query + '"'
+    search = deezer_request(request_str)
+    return search["data"]
+
+def search_results(search_query) : 
+    result = search(search_query)
+    for i in range(len(result)) : 
+        artist = result[i]["artist"]["name"]
+        album = result[i]["album"]["title"]
+        print(artist, "-", album)
+
+print(search_results("feu"))
 
 
-print(json)
+
