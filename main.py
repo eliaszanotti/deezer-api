@@ -1,17 +1,15 @@
 import http.client
 import json
 
-http_client = http.client.HTTPSConnection("api.deezer.com")
-http_client.request("GET", "/track/3135556", )
-result = http_client.getresponse()
-data = result.read()
-json_dictionary = json.loads(data.decode("utf-8"))
+def deezer_request(request_str) :
+    http_client = http.client.HTTPSConnection("api.deezer.com")
+    http_client.request("GET", request_str, )
+    result = http_client.getresponse()
+    data = result.read()
+    json_dictionary = json.loads(data.decode("utf-8"))
+    return json_dictionary
 
-print(json_dictionary["title"])
-
-# print(data.decode("utf-8"))
-
-
+json = deezer_request("/track/3135556")
 
 
-# Load API response into a Python dictionary object, encoded as utf-8 string
+print(json)
