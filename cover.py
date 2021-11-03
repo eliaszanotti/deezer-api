@@ -1,22 +1,8 @@
-import http.client
-import json
-
-def deezer_request(request_str) :
-    http_client = http.client.HTTPSConnection("api.deezer.com")
-    http_client.request("GET", request_str, )
-    result = http_client.getresponse()
-    data = result.read()
-    json_dictionary = json.loads(data.decode("utf-8"))
-    return json_dictionary
-
-def search(search_query) : 
-    request_str = '/search?q=album:"' + search_query + '"'
-    search = deezer_request(request_str)
-    return search["data"]
+import request
 
 def get_cover(id_album) : 
     request_str = '/album/' + str(id_album)
-    album = deezer_request(request_str)
+    album = request.deezer_request(request_str)
     return album["cover_xl"]
 
 def search_results(search_query) : 
@@ -26,7 +12,7 @@ def search_results(search_query) :
             new_query += "_"
         else : 
             new_query += char 
-    result = search(new_query)
+    result = request.search(new_query)
     list_albums = []
     for i in range(len(result)) : 
         artist = result[i]["artist"]["name"]
@@ -39,7 +25,5 @@ def search_results(search_query) :
         print(album)
     return 
 
-search_results('feu')
-
-
-
+if __name__ == "__main__" : 
+    search_results('nevermind')
