@@ -1,8 +1,13 @@
 import request
 
+def search_album(search_query) : 
+    request_str = '/search?q=album:"' + search_query + '"'
+    search = request.deezer(request_str)
+    return search["data"]
+
 def get_cover(id_album) : 
     request_str = '/album/' + str(id_album)
-    album = request.deezer_request(request_str)
+    album = request.deezer(request_str)
     return album["cover_xl"]
 
 def search_results(search_query) : 
@@ -12,7 +17,7 @@ def search_results(search_query) :
             new_query += "_"
         else : 
             new_query += char 
-    result = request.search(new_query)
+    result = search_album(new_query)
     list_albums = []
     for i in range(len(result)) : 
         artist = result[i]["artist"]["name"]
@@ -26,4 +31,4 @@ def search_results(search_query) :
     return 
 
 if __name__ == "__main__" : 
-    search_results('nevermind')
+    search_results('feu')
